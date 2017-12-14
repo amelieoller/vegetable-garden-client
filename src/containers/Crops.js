@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../actions/cropActions'
 
-const Crops = (props) => (
-   <div className="CropsContainer">
-      <h1>Crops</h1>
-      {props.crops.map(crop =>
-         <div key={crop.id} className="CropCard">
-            <h3>{crop.name}</h3>
-            <p>Days to Maturity: {crop.days_to_maturity}</p>
+import Crop from '../components/Crop';
+
+class Crops extends Component {
+
+   componentDidMount() {
+      if(this.props.crops.crops.length === 0) {
+         this.props.actions.fetchCrops()
+      }
+   }
+
+   render() {
+      return (
+         <div className="CropsContainer">
+            <h1>Crops</h1>
+            {this.props.crops.crops.map((crop, index) =>
+               <Crop key={index} crop={crop} />
+            )}
          </div>
-      )}
-   </div>
-)
+      )
+   }
+}
 
-export default Crops;
+const mapStateToProps = (state) => {
+   return {
+      crops: state.crops
+   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+   return {actions: bindActionCreators(actions, dispatch)};   
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Crops);
