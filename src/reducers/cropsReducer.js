@@ -1,9 +1,9 @@
-export default function cropsReducer(state = {loading: false, crops: []}, action) {
+export default function cropsReducer(state = [], action) {
   switch (action.type) {
-    case 'LOADING_CROPS':
-      return Object.assign({}, state, {loading: true});
     case 'GET_CROPS':
-      return {loading: false, crops: action.crops}
+      return action.crops
+    case 'CREATE_CROP':
+      return state.concat(action.crop)
     default:
       return state
   }
