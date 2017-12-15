@@ -3,23 +3,26 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cropActions'
 
+import CropForm from './CropForm'
 import Crop from '../components/Crop';
 
 class Crops extends Component {
 
    componentDidMount() {
-      if(this.props.crops.crops.length === 0) {
-         this.props.actions.fetchCrops()
+      const {crops, actions} = this.props      
+      
+      if(crops.length === 0) {
+         actions.fetchCrops()
       }
    }
 
    render() {
+      const {crops} = this.props      
       return (
          <div className="CropsContainer">
             <h1>Crops</h1>
-            {this.props.crops.crops.map((crop, index) =>
-               <Crop key={index} crop={crop} />
-            )}
+            {crops.map((crop, index) => <Crop key={index} crop={crop} />)}
+            <CropForm />
          </div>
       )
    }
