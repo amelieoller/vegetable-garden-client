@@ -5,6 +5,8 @@ import * as actions from "../actions/cropActions";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
+import DateFormat from "./DateFormat";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 class CropListItem extends Component {
@@ -22,15 +24,51 @@ class CropListItem extends Component {
       .catch(error => console.log(error));
   };
 
+  handleOnCheck = crop => {
+    return fetch(
+      `${API_URL}/crops/${crop.id}?active=${crop.active ? false : true}`,
+      {
+        method: "PATCH"
+      }
+    )
+      .then(response => {
+        if (response.ok) {
+          this.props.actions.updateCrop(crop.id);
+          this.props.actions.fetchCrops();
+        } else {
+          window.alert("Unable to update");
+        }
+      })
+      .catch(error => console.log(error));
+  };
+
   render() {
     const { crop, match } = this.props;
 
     return (
-      <div className="CropCard">
+      <div className="CropCard col-sm-2">
+        <img
+          src={crop.image_url}
+          className="square-image small-image"
+          alt={crop.name}
+        />
         <h3>
           <Link to={`/crops/${crop.id}`}>{crop.name}</Link>
         </h3>
         <p>Days to Maturity: {crop.days_to_maturity}</p>
+        <p>
+          Planted on <DateFormat date={crop.date_planted} />
+        </p>
+        <div className="checkbox">
+          <label>
+            <input
+              type="checkbox"
+              checked={crop.active}
+              onChange={() => this.handleOnCheck(crop)}
+            />{" "}
+            Active
+          </label>
+        </div>
         <button
           className={"btn btn-danger " + `delete_crop_${crop.id}`}
           onClick={() => this.handleOnClick(crop.id)}
