@@ -1,0 +1,17 @@
+.square-image {
+  object-fit: cover;
+}
+
+.large-image {
+  width: 250px;
+  height: 250px;
+}
+
+.small-image {
+  width: 165px;
+  height: 165px;
+}
+
+.CropCard {
+  padding-bottom: 25px;
+}
