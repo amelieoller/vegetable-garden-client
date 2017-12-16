@@ -1,5 +1,3 @@
-import { resetCropForm } from "./cropFormActions";
-
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const fetchCrops = () => {
@@ -23,7 +21,23 @@ export const createCrop = crop => {
       .then(response => response.json())
       .then(crop => {
         dispatch({ type: "CREATE_CROP", crop });
-        dispatch(resetCropForm());
+      })
+      .catch(error => console.log(error));
+  };
+};
+
+export const updateCrop = (crop, id) => {
+  return dispatch => {
+    return fetch(`${API_URL}/crops/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(crop)
+    })
+      .then(response => response.json())
+      .then(crop => {
+        dispatch({ type: "EDIT_CROP", crop });
       })
       .catch(error => console.log(error));
   };
