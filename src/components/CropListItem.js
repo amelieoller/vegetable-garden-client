@@ -25,21 +25,7 @@ class CropListItem extends Component {
   };
 
   handleOnCheck = crop => {
-    return fetch(
-      `${API_URL}/crops/${crop.id}?active=${crop.active ? false : true}`,
-      {
-        method: "PATCH"
-      }
-    )
-      .then(response => {
-        if (response.ok) {
-          this.props.actions.updateCrop(crop.id);
-          this.props.actions.fetchCrops();
-        } else {
-          window.alert("Unable to update");
-        }
-      })
-      .catch(error => console.log(error));
+    this.props.actions.updateCropActive(crop);
   };
 
   render() {

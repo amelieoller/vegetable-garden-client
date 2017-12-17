@@ -6,12 +6,12 @@ export default function cropsReducer(state = [], action) {
       return state.concat(action.crop);
     case "DELETE_CROP":
       return state.filter(crop => crop.id !== action.id);
-    case "UPDATE_CROP":
+    case "UPDATE_CROP_ACTIVE":
       return state.map(
         crop =>
-          crop.id === action.id ? { ...crop, action: !crop.action } : crop
+          crop.id === action.crop.id ? { ...crop, active: !crop.active } : crop
       );
-    case "EDIT_CROP":
+    case "UPDATE_CROP":
       return state.map(
         crop =>
           crop.id === action.crop.id

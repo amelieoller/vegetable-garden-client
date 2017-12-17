@@ -26,10 +26,29 @@ export const createCrop = crop => {
   };
 };
 
+export const updateCropActive = crop => {
+  return dispatch => {
+    return fetch(
+      `${API_URL}/crops/${crop.id}?active=${crop.active ? false : true}`,
+      {
+        method: "PUT"
+      }
+    )
+      .then(response => {
+        if (response.ok) {
+          dispatch({ type: "UPDATE_CROP_ACTIVE", crop });
+        } else {
+          window.alert("Unable to update");
+        }
+      })
+      .catch(error => console.log(error));
+  };
+};
+
 export const updateCrop = (crop, id) => {
   return dispatch => {
     return fetch(`${API_URL}/crops/${id}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
@@ -37,7 +56,7 @@ export const updateCrop = (crop, id) => {
     })
       .then(response => response.json())
       .then(crop => {
-        dispatch({ type: "EDIT_CROP", crop });
+        dispatch({ type: "UPDATE_CROP", crop });
       })
       .catch(error => console.log(error));
   };
