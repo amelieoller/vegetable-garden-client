@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { isEqual } from "lodash";
 
 import { updateCrop } from "../actions/cropActions";
@@ -9,15 +8,7 @@ import { createCrop } from "../actions/cropActions";
 class CropForm extends Component {
   constructor(props) {
     super(props);
-
-    const {
-      name,
-      days_to_maturity,
-      date_planted,
-      image_url,
-      active
-    } = this.props.crop;
-
+    
     this.state = {
       name: "",
       days_to_maturity: "",
