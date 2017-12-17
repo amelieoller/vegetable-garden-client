@@ -1,48 +1,80 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { browserHistory } from "react-router";
+import { isEqual } from "lodash";
 
 import { updateCrop } from "../actions/cropActions";
+import { createCrop } from "../actions/cropActions";
 
-class CropEdit extends Component {
-  static propTypes = {
-    name: PropTypes.string
-  };
-
+class CropForm extends Component {
   constructor(props) {
     super(props);
 
+    const {
+      name,
+      days_to_maturity,
+      date_planted,
+      image_url,
+      active
+    } = this.props.crop;
+
     this.state = {
-      name: this.props.crop.name || "",
-      days_to_maturity: this.props.crop.days_to_maturity || "",
-      date_planted: this.props.crop.date_planted || "",
-      image_url: this.props.crop.image_url || "",
-      active: this.props.crop.active || false
+      name: "",
+      days_to_maturity: "",
+      date_planted: "",
+      image_url: "",
+      active: true
     };
+
+    this.baseState = this.state;
   }
 
-  handleOnChange = event => {
-    const { name, value, checked, type } = event.target;
+  resetForm = () => {
+    this.setState(this.baseState);
+  };
+
+  componentDidMount() {
+    if (!this.state.name) {
+      this.setState(...this.state, this.props.crop);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.path === "/crops/new") {
+      this.resetForm();
+    } else {
+      if (!isEqual(nextProps.crop, this.props.crop)) {
+        this.setState(...this.state, nextProps.crop);
+      }
+    }
+  }
+
+  handleOnChange = e => {
+    const { name, value, checked, type } = e.target;
     this.setState({
       [name]: type === "checkbox" ? checked : value
     });
   };
 
-  handleOnSubmit = (event, id) => {
-    event.preventDefault();
-    const crop = Object.assign({}, this.state);
-
-    this.props.updateCrop(crop, id);
+  handleOnSubmit = (e, id) => {
+    e.preventDefault();
+    if (id) {
+      this.props.updateCrop({ ...this.state }, id);
+    } else {
+      this.props.createCrop({ ...this.state });
+      this.resetForm();
+    }
   };
 
   render() {
+    const { id } = this.props.crop;
     return (
       <div>
-        <h1>Edit Crop</h1>
-        <form
-          onSubmit={event => this.handleOnSubmit(event, this.props.crop.id)}
-        >
+        <h1>
+          {id ? "Edit " : "Add "}
+          Crop
+        </h1>
+        <form onSubmit={e => this.handleOnSubmit(e, id ? id : false)}>
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input
@@ -69,7 +101,7 @@ class CropEdit extends Component {
               type="date"
               onChange={this.handleOnChange}
               name="date_planted"
-              value={this.state.date_planted}
+              value={this.state.date_planted.split("T")[0]}
               className="form-control"
             />
           </div>
@@ -113,4 +145,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-export default connect(mapStateToProps, { updateCrop })(CropEdit);
+export default connect(mapStateToProps, { updateCrop, createCrop })(CropForm);
