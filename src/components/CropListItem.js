@@ -7,21 +7,9 @@ import { withRouter } from "react-router-dom";
 
 import DateFormat from "./DateFormat";
 
-const API_URL = process.env.REACT_APP_API_URL;
-
 class CropListItem extends Component {
   handleOnClick = id => {
-    return fetch(`${API_URL}/crops/${id}`, {
-      method: "DELETE"
-    })
-      .then(response => {
-        if (response.ok) {
-          this.props.actions.deleteCrop(id);
-        } else {
-          window.alert("Unable to delete");
-        }
-      })
-      .catch(error => console.log(error));
+    this.props.actions.deleteCrop(id);
   };
 
   handleOnCheck = crop => {
@@ -30,7 +18,6 @@ class CropListItem extends Component {
 
   render() {
     const { crop, match } = this.props;
-
     return (
       <div className="CropCard col-sm-2">
         <img

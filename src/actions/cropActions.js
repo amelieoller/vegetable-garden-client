@@ -63,8 +63,17 @@ export const updateCrop = (crop, id) => {
 };
 
 export const deleteCrop = id => {
-  return {
-    type: "DELETE_CROP",
-    id
+  return dispatch => {
+    return fetch(`${API_URL}/crops/${id}`, {
+      method: "DELETE"
+    })
+      .then(response => {
+        if (response.ok) {
+          dispatch({ type: "DELETE_CROP", id });
+        } else {
+          window.alert("Unable to delete");
+        }
+      })
+      .catch(error => console.log(error));
   };
 };
