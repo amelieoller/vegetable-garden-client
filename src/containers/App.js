@@ -13,7 +13,7 @@ const App = () => (
         exact
         path="/"
         render={() => (
-          <div>
+          <div className="container">
             <h1>Welcome To Your Garden</h1>
             <h3>What would you like to do?</h3>
             <Link to={`/crops`} className="btn btn-primary">

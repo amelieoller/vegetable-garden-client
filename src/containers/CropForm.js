@@ -8,7 +8,7 @@ import { createCrop } from "../actions/cropActions";
 class CropForm extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       name: "",
       days_to_maturity: "",

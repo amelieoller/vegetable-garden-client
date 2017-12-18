@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as actions from "../actions/cropActions";
 
@@ -33,7 +33,12 @@ class CropsPage extends Component {
           <Route
             exact
             path={match.url}
-            render={() => <h3>Select a Crop to View Details</h3>}
+            render={() => (
+              <h3>
+                Select a Crop to View Details or
+                <Link to={`${match.url}/new`}> Add a New Crop</Link>.
+              </h3>
+            )}
           />
         </Switch>
         <hr />
