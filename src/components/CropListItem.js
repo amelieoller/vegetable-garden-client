@@ -20,7 +20,20 @@ const CropListItem = ({ crop, match, actions }) => {
 
   return (
     <div className="CropCard col-sm-2">
-    <div class="square" style={{ backgroundImage: `url(${image_url})` }}></div>
+      {image_url ? (
+        <div
+          className="square"
+          style={{ backgroundImage: `url(${image_url})` }}
+        />
+      ) : (
+        <div
+          className="square"
+          style={{
+            backgroundImage:
+              "url(https://x.kinja-static.com/assets/images/logos/placeholders/default.png)"
+          }}
+        />
+      )}
       <h3>
         <Link to={`/crops/${id}`}>{name}</Link>
       </h3>

@@ -26,7 +26,20 @@ const CropShow = ({ crop }) => {
   return (
     <div className="row">
       <div className="col-sm-3">
-        <div class="square" style={{ backgroundImage: `url(${image_url})` }}></div>
+        {image_url ? (
+          <div
+            className="square"
+            style={{ backgroundImage: `url(${image_url})` }}
+          />
+        ) : (
+          <div
+            className="square"
+            style={{
+              backgroundImage:
+                "url(https://x.kinja-static.com/assets/images/logos/placeholders/default.png)"
+            }}
+          />
+        )}
       </div>
       <div className="col-sm-3">
         <h2>{name}</h2>
