@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import NavBar from "../components/NavBar";
-import CropsPage from "./CropsPage";
+import NavBar from "./NavBar";
+import CropsPage from "../containers/CropsPage";
 
 const App = () => (
   <Router>
