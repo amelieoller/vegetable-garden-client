@@ -1,10 +1,46 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
+const getCrops = crops => {
+  return {
+    type: "GET_CROPS",
+    crops
+  };
+};
+
+const addCrop = crop => {
+  return {
+    type: "CREATE_CROP",
+    crop
+  };
+};
+
+const removeCrop = id => {
+  return {
+    type: "DELETE_CROP",
+    id
+  };
+};
+
+const editCrop = crop => {
+  return {
+    type: "UPDATE_CROP",
+    crop
+  };
+};
+
+const editCropActive = crop => {
+  return {
+    type: "UPDATE_CROP_ACTIVE",
+    crop
+  };
+};
+
+// *** Async Actions ***
 export const fetchCrops = () => {
   return dispatch => {
     return fetch(`${API_URL}/crops`)
       .then(response => response.json())
-      .then(crops => dispatch({ type: "GET_CROPS", crops }))
+      .then(crops => dispatch(getCrops(crops)))
       .catch(error => console.log(error));
   };
 };
@@ -20,7 +56,23 @@ export const createCrop = crop => {
     })
       .then(response => response.json())
       .then(crop => {
-        dispatch({ type: "CREATE_CROP", crop });
+        dispatch(addCrop(crop));
+      })
+      .catch(error => console.log(error));
+  };
+};
+
+export const deleteCrop = id => {
+  return dispatch => {
+    return fetch(`${API_URL}/crops/${id}`, {
+      method: "DELETE"
+    })
+      .then(response => {
+        if (response.ok) {
+          dispatch(removeCrop(id));
+        } else {
+          window.alert("Unable to delete");
+        }
       })
       .catch(error => console.log(error));
   };
@@ -36,7 +88,7 @@ export const updateCropActive = crop => {
     )
       .then(response => {
         if (response.ok) {
-          dispatch({ type: "UPDATE_CROP_ACTIVE", crop });
+          dispatch(editCropActive(crop));
         } else {
           window.alert("Unable to update");
         }
@@ -56,23 +108,7 @@ export const updateCrop = (crop, id) => {
     })
       .then(response => response.json())
       .then(crop => {
-        dispatch({ type: "UPDATE_CROP", crop });
-      })
-      .catch(error => console.log(error));
-  };
-};
-
-export const deleteCrop = id => {
-  return dispatch => {
-    return fetch(`${API_URL}/crops/${id}`, {
-      method: "DELETE"
-    })
-      .then(response => {
-        if (response.ok) {
-          dispatch({ type: "DELETE_CROP", id });
-        } else {
-          window.alert("Unable to delete");
-        }
+        dispatch(editCrop(crop));
       })
       .catch(error => console.log(error));
   };
