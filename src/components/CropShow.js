@@ -25,10 +25,10 @@ const CropShow = ({ crop }) => {
 
   return (
     <div className="row">
-      <div className="col-md-3">
-        <img src={image_url} className="square-image large-image" alt={name} />
+      <div className="col-sm-3">
+        <div class="square" style={{ backgroundImage: `url(${image_url})` }}></div>
       </div>
-      <div className="col-md-3">
+      <div className="col-sm-3">
         <h2>{name}</h2>
         <p>Days to Maturity: {days_to_maturity}</p>
         <p>
@@ -46,7 +46,7 @@ const CropShow = ({ crop }) => {
         </p>
         <p>{pastDue(maturityDate(date_planted, days_to_maturity))}</p>
       </div>
-      <div className="col-md-6">
+      <div className="col-sm-6">
         <CropInfo name={name} />
       </div>
     </div>

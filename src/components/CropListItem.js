@@ -20,7 +20,7 @@ const CropListItem = ({ crop, match, actions }) => {
 
   return (
     <div className="CropCard col-sm-2">
-      <img src={image_url} className="square-image small-image" alt={name} />
+    <div class="square" style={{ backgroundImage: `url(${image_url})` }}></div>
       <h3>
         <Link to={`/crops/${id}`}>{name}</Link>
       </h3>
