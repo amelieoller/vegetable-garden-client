@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import * as actions from "../actions/cropActions";
 
 import CropsList from "../components/CropsList";
-import CropShow from "./CropShow";
+import CropShow from "../components/CropShow";
 import CropForm from "./CropForm";
 
 class CropsPage extends Component {
