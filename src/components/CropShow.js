@@ -41,15 +41,13 @@ const CropShow = ({ crop }) => {
         <p>
           Maturity Date:{" "}
           <strong>
-            <DateFormat
-              date={maturityDate(crop.date_planted, crop.days_to_maturity)}
-            />
+            <DateFormat date={maturityDate(date_planted, days_to_maturity)} />
           </strong>
         </p>
-        <p>{pastDue(maturityDate(crop.date_planted, crop.days_to_maturity))}</p>
+        <p>{pastDue(maturityDate(date_planted, days_to_maturity))}</p>
       </div>
       <div className="col-md-6">
-        <CropInfo name={crop.name} />
+        <CropInfo name={name} />
       </div>
     </div>
   );

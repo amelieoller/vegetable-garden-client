@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "../actions/cropActions";
@@ -16,39 +16,37 @@ const CropListItem = ({ crop, match, actions }) => {
     actions.updateCropActive(crop);
   };
 
+  const { image_url, name, date_planted, days_to_maturity, id, active } = crop;
+
   return (
     <div className="CropCard col-sm-2">
-      <img
-        src={crop.image_url}
-        className="square-image small-image"
-        alt={crop.name}
-      />
+      <img src={image_url} className="square-image small-image" alt={name} />
       <h3>
-        <Link to={`/crops/${crop.id}`}>{crop.name}</Link>
+        <Link to={`/crops/${id}`}>{name}</Link>
       </h3>
-      <p>Days to Maturity: {crop.days_to_maturity}</p>
+      <p>Days to Maturity: {days_to_maturity}</p>
       <p>
-        Planted on <DateFormat date={crop.date_planted} />
+        Planted on <DateFormat date={date_planted} />
       </p>
       <div className="checkbox">
         <label>
           <input
             type="checkbox"
-            checked={crop.active}
+            checked={active}
             onChange={() => handleOnCheck(crop)}
           />{" "}
           Active
         </label>
       </div>
       <button
-        className={"btn btn-danger " + `delete_crop_${crop.id}`}
-        onClick={() => handleOnClick(crop.id)}
+        className={"btn btn-danger " + `delete_crop_${id}`}
+        onClick={() => handleOnClick(id)}
       >
         Delete
       </button>
       <Link
-        to={`${match.url}/${crop.id}/Edit`}
-        className={"btn btn-primary " + `edit_crop_${crop.id}`}
+        to={`${match.url}/${id}/Edit`}
+        className={"btn btn-primary " + `edit_crop_${id}`}
       >
         Edit
       </Link>
