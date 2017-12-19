@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { isEqual } from "lodash";
+import { Redirect } from "react-router";
 
 import { updateCrop } from "../actions/cropActions";
 import { createCrop } from "../actions/cropActions";
@@ -14,7 +15,8 @@ class CropForm extends Component {
       days_to_maturity: "",
       date_planted: "",
       image_url: "",
-      active: true
+      active: true,
+      rediretToNewPage: false
     };
 
     this.baseState = this.state;
@@ -55,10 +57,28 @@ class CropForm extends Component {
       this.props.createCrop({ ...this.state });
       this.resetForm();
     }
+    this.setState({ redirectToNewPage: true });
   };
 
   render() {
     const { id } = this.props.crop;
+    const {
+      redirectToNewPage,
+      name,
+      days_to_maturity,
+      date_planted,
+      image_url,
+      active
+    } = this.state;
+
+    if (redirectToNewPage) {
+      return (
+        <div>
+          {id ? <Redirect to={`/crops/${id}`} /> : <Redirect to={`/crops`} />}
+        </div>
+      );
+    }
+
     return (
       <div>
         <h1>
@@ -72,7 +92,7 @@ class CropForm extends Component {
               type="text"
               onChange={this.handleOnChange}
               name="name"
-              value={this.state.name}
+              value={name}
               className="form-control"
             />
           </div>
@@ -82,7 +102,7 @@ class CropForm extends Component {
               type="number"
               onChange={this.handleOnChange}
               name="days_to_maturity"
-              value={this.state.days_to_maturity}
+              value={days_to_maturity}
               className="form-control"
             />
           </div>
@@ -92,7 +112,7 @@ class CropForm extends Component {
               type="date"
               onChange={this.handleOnChange}
               name="date_planted"
-              value={this.state.date_planted.split("T")[0]}
+              value={date_planted ? date_planted.split("T")[0] : ""}
               className="form-control"
             />
           </div>
@@ -102,7 +122,7 @@ class CropForm extends Component {
               type="text"
               onChange={this.handleOnChange}
               name="image_url"
-              value={this.state.image_url}
+              value={image_url}
               className="form-control"
             />
           </div>
@@ -110,7 +130,7 @@ class CropForm extends Component {
             <label>
               <input
                 type="checkbox"
-                checked={this.state.active}
+                checked={active}
                 name="active"
                 onChange={this.handleOnChange}
               />{" "}
