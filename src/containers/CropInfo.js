@@ -8,7 +8,9 @@ class CropInfo extends Component {
       showResults: false,
       error: false,
       description: "",
-      sun_requirements: ""
+      sun_requirements: "",
+      row_spacing: "",
+      spread: ""
     };
   }
 
@@ -21,36 +23,60 @@ class CropInfo extends Component {
       .then(response => response.json())
       .then(json => {
         console.log(json);
+
+        function search(key, resultsArray) {
+          for (var i = 0; i < resultsArray.length; i++) {
+            if (resultsArray[i].attributes[key] !== null) {
+              return resultsArray[i].attributes[key];
+            }
+          }
+        }
+
         this.setState({
           showResults: true,
-          description: json.data[0].attributes.description,
-          sun_requirements: json.data[0].attributes.sun_requirements
+          description: search("description", json.data),
+          sun_requirements: search("sun_requirements", json.data),
+          row_spacing: search("row_spacing", json.data),
+          spread: search("spread", json.data)
         });
       })
       .catch(error => this.setState({ error: true }));
   };
 
   render() {
+    const {
+      showResults,
+      description,
+      sun_requirements,
+      row_spacing,
+      spread,
+      error
+    } = this.state;
+
     return (
       <div>
         <h2>More Information</h2>
         <button className="btn btn-primary" onClick={() => this.moreInfo()}>
           More Information on this Crop
         </button>
-        {this.state.showResults ? (
+        {showResults ? (
           <div>
             <p>
-              <strong>Description:</strong> {this.state.description}
+              <strong>Description:</strong> {description}
             </p>
             <p>
-              <strong>Sun Requirements:</strong> {this.state.sun_requirements}
+              <strong>Sun Requirements:</strong> {sun_requirements}
+            </p>
+            <p>
+              <strong>Row Spacing:</strong> {row_spacing} cm
+            </p>
+            <p>
+              <strong>Spread:</strong> {spread} cm
             </p>
           </div>
         ) : null}
 
-        {this.state.error ? (
-          <p>There was an error, please try a different crop.</p>
-        ) : null}
+        {error ? <p>There was an error, please try a different crop.</p> : null}
       </div>
     );
   }
