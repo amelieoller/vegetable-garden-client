@@ -22,8 +22,6 @@ class CropInfo extends Component {
     fetch(`https://openfarm.cc/api/v1/crops/?filter=${this.props.name}`)
       .then(response => response.json())
       .then(json => {
-        console.log(json);
-
         function search(key, resultsArray) {
           for (var i = 0; i < resultsArray.length; i++) {
             if (resultsArray[i].attributes[key] !== null) {
@@ -32,13 +30,17 @@ class CropInfo extends Component {
           }
         }
 
-        this.setState({
-          showResults: true,
-          description: search("description", json.data),
-          sun_requirements: search("sun_requirements", json.data),
-          row_spacing: search("row_spacing", json.data),
-          spread: search("spread", json.data)
-        });
+        if (json.data.length !== 0) {
+          this.setState({
+            showResults: true,
+            description: search("description", json.data),
+            sun_requirements: search("sun_requirements", json.data),
+            row_spacing: search("row_spacing", json.data),
+            spread: search("spread", json.data)
+          });
+        } else {
+          this.setState({ error: true });
+        }
       })
       .catch(error => this.setState({ error: true }));
   };
