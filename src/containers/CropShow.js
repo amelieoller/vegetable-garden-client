@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import DateFormat from "../components/DateFormat";
-import CropInfo from "../containers/CropInfo";
+import CropInfo from "./CropInfo";
 
 const CropShow = ({ crop }) => {
   const maturityDate = (date, daysToMaturity) => {
