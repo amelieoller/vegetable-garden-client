@@ -13,15 +13,18 @@
   margin-right: 5px;
 }
 
-
 html, body {
   height: 100%;
   width: 100%;
   margin: 0;
 }
 
+#outer {
+  margin-top: 40px;
+}
+
 #inner_fixed {
-  height: 250px;
+  height: 280px;
 }
 
 #inner_remaining {
@@ -29,7 +32,7 @@ html, body {
   background-size: cover;
   
   position: absolute;
-  top: 250px;
+  top: 280px;
   bottom: 0;
   width: 100%; 
 }
