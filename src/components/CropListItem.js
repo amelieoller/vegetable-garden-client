@@ -1,19 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as actions from "../actions/cropActions";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 import DateFormat from "./DateFormat";
 
-const CropListItem = ({ crop, match, actions }) => {
+const CropListItem = ({ crop, match, deleteCrop, updateCropActive }) => {
   const handleOnClick = id => {
-    actions.deleteCrop(id);
+    deleteCrop(id);
   };
 
   const handleOnCheck = crop => {
-    actions.updateCropActive(crop);
+    updateCropActive(crop);
   };
 
   const { image_url, name, date_planted, days_to_maturity, id, active } = crop;
@@ -52,23 +49,16 @@ const CropListItem = ({ crop, match, actions }) => {
         </label>
       </div>
       <button
-        className={"btn btn-danger " + `delete_crop_${id}`}
+        className="btn btn-danger margin-right"
         onClick={() => handleOnClick(id)}
       >
         Delete
       </button>
-      <Link
-        to={`${match.url}/${id}/Edit`}
-        className={"btn btn-primary " + `edit_crop_${id}`}
-      >
+      <Link to={`${match.url}/${id}/Edit`} className="btn btn-primary">
         Edit
       </Link>
     </div>
   );
 };
 
-const mapDispatchToProps = dispatch => {
-  return { actions: bindActionCreators(actions, dispatch) };
-};
-
-export default withRouter(connect(null, mapDispatchToProps)(CropListItem));
+export default withRouter(CropListItem);

@@ -42,7 +42,11 @@ class CropsPage extends Component {
           />
         </Switch>
         <hr />
-        <CropsList crops={crops} />
+        <CropsList
+          crops={crops}
+          updateCropActive={this.props.actions.updateCropActive}
+          deleteCrop={this.props.actions.deleteCrop}
+        />
       </div>
     );
   }
