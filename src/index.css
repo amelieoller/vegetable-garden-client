@@ -1,19 +1,6 @@
-.CropCard {
-  padding-bottom: 25px;
-}
-
-.square {
-  width: 100%;
-  padding-bottom: 100%;
-  background-size: cover;
-  background-position: center;
-}
-
-.margin-right {
-  margin-right: 5px;
-}
-
-html, body {
+/* Home Page */
+html,
+body {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -30,18 +17,42 @@ html, body {
 #inner_remaining {
   background-image: url("https://images.unsplash.com/photo-1474440692490-2e83ae13ba29?auto=format&fit=crop&w=1350&q=80");
   background-size: cover;
-  
+
   position: absolute;
   top: 280px;
   bottom: 0;
-  width: 100%; 
+  width: 100%;
 }
 
+/* Cards */
+.CropCard {
+  padding-bottom: 25px;
+}
+
+/* Images */
+.square {
+  width: 100%;
+  padding-bottom: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Buttons and Links */
+.margin-right {
+  margin-right: 5px;
+}
+
+h3 a {
+  color: #6e8c41;
+}
+
+/* Navigation */
 .navbar-collapse.collapse {
-  display: block!important;
+  display: block !important;
 }
 
-.navbar-nav>li, .navbar-nav {
+.navbar-nav > li,
+.navbar-nav {
   float: left !important;
 }
 
@@ -50,14 +61,16 @@ html, body {
 }
 
 .navbar-right {
-  float: right!important;
+  float: right !important;
 }
 
-.btn.btn-primary, .btn.btn-primary:hover, .btn.btn-primary:active, .btn.btn-primary.active, .open > .dropdown-toggle.btn-primary, .btn.btn-primary:active:hover, .btn.btn-primary:focus {
+.btn.btn-primary,
+.btn.btn-primary:hover,
+.btn.btn-primary:active,
+.btn.btn-primary.active,
+.open > .dropdown-toggle.btn-primary,
+.btn.btn-primary:active:hover,
+.btn.btn-primary:focus {
   background-color: #83a64e;
   border-color: #6e8c41;
-}
-
-h3 a {
-  color: #6e8c41;
 }
