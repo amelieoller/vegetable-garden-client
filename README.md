@@ -1,6 +1,6 @@
 # Vegetable Garden App
 This is an app built with React and Redux and a Rails API as the backend. In the app you can add vegetables to your garden.
-
+test
 ## Getting Started
 Clone both, the rails app (https://github.com/amelieoller/vegetable-garden-api) and the react client (https://github.com/amelieoller/vegetable-garden-client) repositories to your pc. Open the rails project folder and run bundle install and then run a rails server on port 3001 (rails s -p 3001). Open the react client project, run 'npm install' and then 'npm start' to start a server on port 3000. The app will open at http://localhost:3000/ in your browser. Enjoy!
 
