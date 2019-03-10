@@ -28,7 +28,7 @@ class CropForm extends Component {
 
   componentDidMount() {
     if (!this.state.name) {
-      this.setState(...this.state, this.props.crop);
+      this.setState({ ...this.state, ...this.props.crop  });
     }
   }
 
@@ -37,7 +37,7 @@ class CropForm extends Component {
       this.resetForm();
     } else {
       if (!isEqual(nextProps.crop, this.props.crop)) {
-        this.setState(...this.state, nextProps.crop);
+        this.setState({...this.state, ...nextProps.crop});
       }
     }
   }
