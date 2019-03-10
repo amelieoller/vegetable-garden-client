@@ -5,18 +5,10 @@ import { withRouter } from "react-router-dom";
 import DateFormat from "./DateFormat";
 
 const CropListItem = ({ crop, match, deleteCrop, updateCropActive }) => {
-  const handleOnClick = id => {
-    deleteCrop(id);
-  };
-
-  const handleOnCheck = crop => {
-    updateCropActive(crop);
-  };
-
   const { image_url, name, date_planted, days_to_maturity, id, active } = crop;
 
   return (
-    <div className="CropCard col-sm-2">
+    <div className="CropCard col-12 col-sm-6 col-md-4 col-lg-3">
       {image_url ? (
         <div
           className="square"
@@ -43,14 +35,14 @@ const CropListItem = ({ crop, match, deleteCrop, updateCropActive }) => {
           <input
             type="checkbox"
             checked={active}
-            onChange={() => handleOnCheck(crop)}
+            onChange={() => updateCropActive(crop)}
           />{" "}
           Active
         </label>
       </div>
       <button
         className="btn btn-danger margin-right"
-        onClick={() => handleOnClick(id)}
+        onClick={() => deleteCrop(id)}
       >
         Delete
       </button>
