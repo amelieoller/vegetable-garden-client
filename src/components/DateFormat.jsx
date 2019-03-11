@@ -1,28 +1,37 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function formatDate(date) {
-  var monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
-  var day = date.getDate();
-  var monthIndex = date.getMonth();
-  var year = date.getFullYear();
+  const day = date.getDate();
+  const monthIndex = date.getMonth();
+  const year = date.getFullYear();
 
   return `${monthNames[monthIndex]} ${day} ${year}`;
 }
 
 const DateFormat = ({ date }) => <span>{formatDate(new Date(date))}</span>;
+
+DateFormat.propTypes = {
+  date: PropTypes.string,
+};
+
+DateFormat.defaultProps = {
+  date: toString(new Date()),
+};
 
 export default DateFormat;

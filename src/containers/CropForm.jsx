@@ -1,53 +1,56 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { isEqual } from "lodash";
-import { Redirect } from "react-router";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
+import { Redirect } from 'react-router';
+import PropTypes from 'prop-types';
 
-import { updateCrop } from "../actions/cropActions";
-import { createCrop } from "../actions/cropActions";
+import { updateCrop, createCrop } from '../actions/cropActions';
 
 class CropForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: "",
-      days_to_maturity: "",
-      date_planted: "",
-      image_url: "",
+      name: '',
+      daysToMaturity: 0,
+      datePlanted: '',
+      imageUrl: '',
       active: true,
-      rediretToNewPage: false
     };
 
     this.baseState = this.state;
   }
 
-  resetForm = () => {
-    this.setState(this.baseState);
+  componentDidMount = () => {
+    const { name } = this.state;
+    const { crop } = this.props;
+
+    if (!name) {
+      this.setState(prevState => ({ ...prevState, ...crop }));
+    }
   };
 
-  componentDidMount() {
-    if (!this.state.name) {
-      this.setState({ ...this.state, ...this.props.crop  });
-    }
-  }
+  componentWillReceiveProps = (nextProps) => {
+    const { crop } = this.props;
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.path === "/crops/new") {
+    if (nextProps.match.path === '/crops/new') {
       this.resetForm();
-    } else {
-      if (!isEqual(nextProps.crop, this.props.crop)) {
-        this.setState({...this.state, ...nextProps.crop});
-      }
+    } else if (!isEqual(nextProps.crop, crop)) {
+      this.setState(prevState => ({ ...prevState, ...nextProps.crop }));
     }
-  }
+  };
 
-  handleOnChange = e => {
-    const { name, value, checked, type } = e.target;
+  handleOnChange = (e) => {
+    const {
+      name, value, checked, type,
+    } = e.target;
+
     this.setState({
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     });
   };
+
+  resetForm = () => this.setState(this.baseState);
 
   handleOnSubmit = (e, id) => {
     e.preventDefault();
@@ -61,34 +64,28 @@ class CropForm extends Component {
   };
 
   render() {
-    const { id } = this.props.crop;
     const {
-      redirectToNewPage,
-      name,
-      days_to_maturity,
-      date_planted,
-      image_url,
-      active
+      crop: { id },
+    } = this.props;
+    const {
+      redirectToNewPage, name, daysToMaturity, datePlanted, imageUrl, active,
     } = this.state;
 
     if (redirectToNewPage) {
-      return (
-        <div>
-          {id ? <Redirect to={`/crops/${id}`} /> : <Redirect to={`/crops`} />}
-        </div>
-      );
+      return <div>{id ? <Redirect to={`/crops/${id}`} /> : <Redirect to="/crops" />}</div>;
     }
 
     return (
       <div>
         <h1>
-          {id ? "Edit " : "Add "}
+          {id ? 'Edit ' : 'Add '}
           Crop
         </h1>
-        <form onSubmit={e => this.handleOnSubmit(e, id ? id : false)}>
+        <form onSubmit={e => this.handleOnSubmit(e, id || false)}>
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input
+              id="name"
               type="text"
               onChange={this.handleOnChange}
               name="name"
@@ -96,44 +93,49 @@ class CropForm extends Component {
               className="form-control"
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="days_to_maturity">Days To Maturity:</label>
+          {/* <div className="form-group">
+            <label htmlFor="daysToMaturity">Days To Maturity:</label>
             <input
+              id="daysToMaturity"
               type="number"
               onChange={this.handleOnChange}
-              name="days_to_maturity"
-              value={days_to_maturity}
+              name="daysToMaturity"
+              value={daysToMaturity}
               className="form-control"
             />
-          </div>
+          </div> */}
           <div className="form-group">
-            <label htmlFor="date_planted">Date Planted</label>
+            <label htmlFor="datePlanted">Date Planted</label>
             <input
+              id="datePlanted"
               type="date"
               onChange={this.handleOnChange}
-              name="date_planted"
-              value={date_planted ? date_planted.split("T")[0] : ""}
+              name="datePlanted"
+              value={datePlanted ? datePlanted.split('T')[0] : ''}
               className="form-control"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="image_url">Image URL</label>
+            <label htmlFor="imageUrl">Image URL</label>
             <input
+              id="imageUrl"
               type="text"
               onChange={this.handleOnChange}
-              name="image_url"
-              value={image_url}
+              name="imageUrl"
+              value={imageUrl}
               className="form-control"
             />
           </div>
           <div className="form-group">
-            <label>
+            <label htmlFor="active">
               <input
+                id="active"
                 type="checkbox"
                 checked={active}
                 name="active"
                 onChange={this.handleOnChange}
-              />{" "}
+              />
+              {' '}
               Active
             </label>
           </div>
@@ -144,16 +146,35 @@ class CropForm extends Component {
   }
 }
 
+CropForm.propTypes = {
+  crop: PropTypes.shape({
+    active: PropTypes.bool,
+    created_at: PropTypes.string,
+    datePlanted: PropTypes.string,
+    daysToMaturity: PropTypes.number,
+    id: PropTypes.number,
+    imageUrl: PropTypes.string,
+    name: PropTypes.string,
+    updated_at: PropTypes.string,
+  }).isRequired,
+  match: PropTypes.shape({
+    path: PropTypes.string,
+    params: PropTypes.shape({
+      id: PropTypes.node,
+    }).isRequired,
+  }).isRequired,
+};
+
 const mapStateToProps = (state, ownProps) => {
-  const crop = state.crops.find(
-    crop => crop.id === +ownProps.match.params.cropId
-  );
+  const crop = state.crops.find(c => c.id === +ownProps.match.params.cropId);
 
   if (crop) {
     return { crop };
-  } else {
-    return { crop: {} };
   }
+  return { crop: {} };
 };
 
-export default connect(mapStateToProps, { updateCrop, createCrop })(CropForm);
+export default connect(
+  mapStateToProps,
+  { updateCrop, createCrop },
+)(CropForm);

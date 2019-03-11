@@ -1,9 +1,9 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
+// @flow
+import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import NavBar from "./NavBar";
-import CropsPage from "../containers/CropsPage";
+import NavBar from './NavBar';
+import CropsPage from '../containers/CropsPage';
 
 const App = () => (
   <Router>
@@ -17,14 +17,14 @@ const App = () => (
             <div className="text-center" id="inner_fixed">
               <h1>Welcome To Your Garden</h1>
               <h3>What would you like to do?</h3>
-              <Link to={`/crops`} className="btn btn-primary margin-right">
+              <Link to="/crops" className="btn btn-primary margin-right">
                 See My Garden
               </Link>
-              <Link to={`/crops/new`} className="btn btn-primary">
+              <Link to="/crops/new" className="btn btn-primary">
                 Add a New Crop
               </Link>
             </div>
-            <div id="inner_remaining"></div>
+            <div id="inner_remaining" />
           </div>
         )}
       />
