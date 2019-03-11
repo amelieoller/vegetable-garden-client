@@ -2,17 +2,29 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const NavBar = () => (
-  <nav className="navbar navbar-default">
-    <div className="container-fluid">
-      <ul className="nav navbar-nav">
-        <li>
-          <NavLink to="/">Home</NavLink>
+  <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <a className="navbar-brand" href="/">
+      Vegetable Garden
+    </a>
+
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item">
+          <NavLink to="/" className="nav-link">
+            Home
+          </NavLink>
         </li>
-        <li>
-          <NavLink to="/crops">Crops</NavLink>
+
+        <li className="nav-item">
+          <NavLink to="/crops" className="nav-link">
+            Crops
+          </NavLink>
         </li>
-        <li>
-          <NavLink to="/crops/new">Add Crop</NavLink>
+
+        <li className="nav-item">
+          <NavLink to="/crops/new" className="nav-link">
+            Add Crop
+          </NavLink>
         </li>
       </ul>
     </div>
