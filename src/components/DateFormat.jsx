@@ -27,7 +27,7 @@ function formatDate(date) {
 const DateFormat = ({ date }) => <span>{formatDate(new Date(date))}</span>;
 
 DateFormat.propTypes = {
-  date: PropTypes.string,
+  date: PropTypes.instanceOf(Date),
 };
 
 DateFormat.defaultProps = {

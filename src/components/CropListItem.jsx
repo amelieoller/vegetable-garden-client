@@ -34,7 +34,7 @@ const CropListItem = ({
       <p>
         Planted on
         {' '}
-        <DateFormat date={datePlanted} />
+        <DateFormat date={new Date(datePlanted)} />
       </p>
       <div className="checkbox">
         <label htmlFor="cropActive">

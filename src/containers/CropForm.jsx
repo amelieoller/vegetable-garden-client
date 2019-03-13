@@ -93,7 +93,7 @@ class CropForm extends Component {
               className="form-control"
             />
           </div>
-          {/* <div className="form-group">
+          <div className="form-group">
             <label htmlFor="daysToMaturity">Days To Maturity:</label>
             <input
               id="daysToMaturity"
@@ -103,7 +103,7 @@ class CropForm extends Component {
               value={daysToMaturity}
               className="form-control"
             />
-          </div> */}
+          </div>
           <div className="form-group">
             <label htmlFor="datePlanted">Date Planted</label>
             <input

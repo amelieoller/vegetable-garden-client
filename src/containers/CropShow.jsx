@@ -9,7 +9,8 @@ const CropShow = ({ crop }) => {
   const maturityDate = (date, daysToMaturity) => {
     const matDate = new Date(date);
     matDate.setDate(matDate.getDate() + daysToMaturity);
-    return toString(matDate);
+
+    return matDate;
   };
 
   const pastDue = (matDate) => {
@@ -44,13 +45,13 @@ const CropShow = ({ crop }) => {
       <div className="col-sm-3">
         <h2>{name}</h2>
         <p>
-          Days to Maturity:
+Days to Maturity:
           {daysToMaturity}
         </p>
         <p>
           Date Planted:
           {' '}
-          <DateFormat date={datePlanted} />
+          <DateFormat date={new Date(datePlanted)} />
         </p>
         <p>
           This crop is
