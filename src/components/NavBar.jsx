@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 
 const NavBar = () => (
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    <a className="navbar-brand" href="/">
+    <NavLink to="/" className="navbar-brand">
       Vegetable Garden
-    </a>
+    </NavLink>
 
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mr-auto">

@@ -9,7 +9,7 @@ export default function cropsReducer(state = [], action) {
     case 'UPDATE_CROP_ACTIVE':
       return state.map(crop => (crop.id === action.crop.id ? { ...crop, active: !crop.active } : crop));
     case 'UPDATE_CROP':
-      return state.map(crop => (crop.id === action.crop.id ? Object.assign({}, ...crop, action.crop) : crop));
+      return state.map(crop => (crop.id === action.crop.id ? { ...crop, ...action.crop } : crop));
     default:
       return state;
   }

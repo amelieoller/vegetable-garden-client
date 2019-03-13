@@ -20,7 +20,7 @@ class CropInfo extends Component {
 
   moreInfo() {
     const { name } = this.props;
-    debugger;
+
     fetch(`https://openfarm.cc/api/v1/crops/?filter=${name}`)
       .then(response => response.json())
       .then((json) => {
