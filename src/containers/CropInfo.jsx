@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class CropInfo extends Component {
   constructor(props) {
@@ -92,5 +93,9 @@ cm
     );
   }
 }
+
+CropInfo.propTypes = {
+  name: PropTypes.string.isRequired,
+};
 
 export default CropInfo;
